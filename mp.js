@@ -127,8 +127,7 @@ function Start(fname)
     $("#metaparser").css({"max-width" : "40em"})
     var input = new Input(main)
     $("#metaparser").append(main)
-    parser_start(fname);
-    var text = parser_cmd("look");
+    var text = parser_start(fname);
     var span = $('<span>')
     span.append(text + '\n>')
     span.appendTo(input.container)

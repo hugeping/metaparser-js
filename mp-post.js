@@ -9,7 +9,7 @@ var parser_start, parser_stop, parser_cmd, parser_restart
 
 Module['postRun'].push(function() {
 	console.log("Starting...");
-	parser_start = Module.cwrap('parser_start', 'number', ['string'])
+	parser_start = Module.cwrap('parser_start', 'string', ['string'])
 	parser_restart = Module.cwrap('parser_restart', 'number')
 	parser_stop = Module.cwrap('parser_stop', null)
 	parser_cmd = Module.cwrap('parser_cmd', 'string', ['string'])
