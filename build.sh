@@ -1,6 +1,7 @@
 echo "Happy hacking"
 export WORKSPACE="/home/peter/Devel/emsdk-portable/env"
 . /home/peter/Devel/emsdk-portable/emsdk_env.sh
+
 LIB="$WORKSPACE/lib"
 INC="$WORKSPACE/include"
 emmake make clean
@@ -17,6 +18,11 @@ emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 -o metaparser.html -s SAFE_HEAP=0  -s TOTAL_MEMORY=201326592 -s ALLOW_MEMORY_GROWTH=1 \
 --post-js mp-post.js  \
 --preload-file fs@/
+
+#rm -rf release/
+#mkdir release/
+#cp index.html metaparser.js metaparser.wasm metaparser.data release/
+#cp -R lib release/
 
 echo "Happy hacking"
 python2.7 -m SimpleHTTPServer 8000
