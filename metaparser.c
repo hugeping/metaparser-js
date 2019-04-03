@@ -56,6 +56,21 @@ static int setup_zip(const char *file)
 
 char *parser_cmd(char *cmd);
 
+static void parser_autosave()
+{
+	char *p;
+	char path[PATH_MAX];
+	if (!game[0])
+		return;
+	mkdir("/appdata/saves/", S_IRWXU);
+	snprintf(path, sizeof(path), "/appdata/saves/%s", game);
+	mkdir(path, S_IRWXU);
+	snprintf(path, sizeof(path), "save /appdata/saves/%s/autosave", game);
+	p = parser_cmd(path);
+	if (p)
+		free(p);
+}
+
 static char *parser_autoload()
 {
 	char *p;
@@ -65,13 +80,12 @@ static char *parser_autoload()
 	snprintf(path, sizeof(path), "/appdata/saves/%s/autosave", game);
 	if (access(path, R_OK))
 		return parser_cmd("look");
-	snprintf(path, sizeof(path), "load %s/autosave", path);
+	snprintf(path, sizeof(path), "load /appdata/saves/%s/autosave", game);
 	p = parser_cmd(path);
 	if (p)
 		return p;
 	return parser_cmd("look");
 }
-
 #ifdef __EMSCRIPTEN__
 void data_sync(void)
 {
@@ -79,23 +93,13 @@ void data_sync(void)
 		if (error) {
 			console.log("Error while syncing:", error);
 		} else {
-			console.log("Config synced");
+			console.log("Save synced");
 		}
 	}););
 }
 static const char *em_beforeunload(int eventType, const void *reserved, void *userData)
 {
-	char path[PATH_MAX];
-	char *p;
-	if (!game[0])
-		return NULL;
-	mkdir("/appdata/saves/", S_IRWXU);
-	snprintf(path, sizeof(path), "/appdata/saves/%s", game);
-	mkdir(path, S_IRWXU);
-	snprintf(path, sizeof(path), "save %s/autosave", path);
-	p = parser_cmd(path);
-	if (p)
-		free(p);
+	parser_autosave();
 	data_sync();
 	return NULL;
 }
