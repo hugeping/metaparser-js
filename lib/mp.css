@@ -17,6 +17,7 @@ body
 #metaparser
 {
 	white-space: pre-wrap;
+	max-width: 40em;
 }
 
 /* Line input */
