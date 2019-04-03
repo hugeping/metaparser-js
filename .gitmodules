@@ -1,0 +1,3 @@
+[submodule "instead"]
+	path = instead
+	url = git://github.com/instead-hub/instead.git
