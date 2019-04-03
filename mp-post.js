@@ -5,14 +5,16 @@ FS.mount(IDBFS,{},'/appdata');
 FS.mkdir('/games');
 FS.mount(MEMFS,{},'/games');
 
-var parser_start, parser_stop, parser_cmd, parser_restart
+var parser_start, parser_stop, parser_cmd, parser_restart, parser_load, parser_autoload
 
 Module['postRun'].push(function() {
 	console.log("Starting...");
-	parser_start = Module.cwrap('parser_start', 'string', ['string'])
+	parser_start = Module.cwrap('parser_start', 'number', ['string'])
 	parser_restart = Module.cwrap('parser_restart', 'number')
 	parser_stop = Module.cwrap('parser_stop', null)
 	parser_cmd = Module.cwrap('parser_cmd', 'string', ['string'])
+	parser_autoload = Module.cwrap('parser_autoload', 'string')
+	parser_load = Module.cwrap('parser_load', 'number')
 
 	var argv = []
 	var req
@@ -20,7 +22,7 @@ Module['postRun'].push(function() {
 
 	var metatags = document.getElementsByTagName('meta');
 
-	for (var mt = 0; mt < metatags.length; mt++) { 
+	for (var mt = 0; mt < metatags.length; mt++) {
 		if (metatags[mt].getAttribute("name") === "gamefile") {
 			url = metatags[mt].getAttribute("content");
 		}

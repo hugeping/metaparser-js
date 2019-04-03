@@ -8,7 +8,7 @@ emmake make EXTRA_CFLAGS=-I"$INC"
 test -d fs || { mkdir fs && cp -R stead fs/;  }
 
 emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
--s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart']" \
+-s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_load']" \
 -s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall", "cwrap", "Pointer_stringify"]' \
 -s QUANTUM_SIZE=4 \
 -s BINARYEN_TRAP_MODE=clamp \

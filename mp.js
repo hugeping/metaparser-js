@@ -1,4 +1,5 @@
 var $window = $(window), $doc = $(document), $body, bodylineheight
+var Game
 
 $(function()
 {
@@ -66,7 +67,23 @@ function Input(container)
 	this.input.detach();
 	var span = $('<span>')
 	var ret = parser_cmd('@metaparser "' + command.replace(/"/g, "") + '"'); //'
-	span.append('<b>' + command + '</b>' + '\n' + ret + '\n> ')
+	if (parser_restart() == 1) {
+	    console.log("Restart game\n.");
+	    parser_stop();
+	    parser_start(Game);
+	    ret = parser_cmd("look");
+	    this.container.empty();
+	} else if (parser_load() == 1) {
+	    console.log("Load game\n.");
+	    parser_stop();
+	    parser_start(Game);
+	    ret = "<i>Restored.</i>\n\n" + parser_autoload();
+	    this.container.empty();
+	} else {
+	    ret = '<b>' + command.trim() + '</b>' + '\n' + ret;
+	}
+	ret = ret.trim() + '\n';
+	span.append(ret + '\n&gt; ');
 	span.appendTo(this.container)
 	this.getLine();
     }
@@ -120,6 +137,7 @@ function Input(container)
 
 function Start(fname)
 {
+    Game = fname
     $("#about").detach()
     var main = $("<div>", {
 	class: "main",
@@ -127,9 +145,10 @@ function Start(fname)
     $("#metaparser").css({"max-width" : "40em"})
     var input = new Input(main)
     $("#metaparser").append(main)
-    var text = parser_start(fname);
+    parser_start(fname);
+    var text = parser_cmd("look");
     var span = $('<span>')
-    span.append(text + '\n>')
+    span.append(text + '\n&gt;')
     span.appendTo(input.container)
     input.getLine()
 }

@@ -30,6 +30,7 @@ stead:
 	mkdir stead
 	cp -f -R instead/stead/stead3 stead/
 	cp -f instead/src/tiny/tiny3.lua stead/
+	cp -f mp.lua stead/
 
 $(OBJ): %.o : instead/src/instead/%.c
 	$(CC) -c $(<) $(I) $(CFLAGS) $(CPPFLAGS) -o $(@)
@@ -39,4 +40,4 @@ metaparser$(EXE): metaparser.c unpack.c unzip.c ioapi.c $(OBJ)
 
 clean:
 	$(RM) -f *.o metaparser$(EXE)
-	$(RM) -rf stead
+	$(RM) -rf stead metaparser.data metaparser.html metaparser.js metaparser.wasm
