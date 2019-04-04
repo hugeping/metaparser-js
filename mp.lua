@@ -1,3 +1,4 @@
+local std = stead
 local iface = std '@iface'
 local instead = std '@instead'
 
@@ -18,3 +19,13 @@ iface.img = function(s, str)
 end
 instead.restart = instead_restart
 instead.menu = instead_menu
+
+std.mod_start(function()
+	local mp = std.ref '@metaparser'
+	if mp then
+		std.rawset(mp, 'clear', function(self)
+			self.text = ''
+			instead_clear();
+		end)
+	end
+end)

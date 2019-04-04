@@ -18,6 +18,7 @@ static char game_path[PATH_MAX];
 static int need_restart = 0;
 static int need_load = 0;
 static int need_save = 0;
+static int need_clear = 0;
 
 static void parser_autosave();
 
@@ -35,9 +36,15 @@ static int luaB_restart(lua_State *L) {
 	return 0;
 }
 
+static int luaB_clear(lua_State *L) {
+	need_clear = 1;
+	return 0;
+}
+
 static const luaL_Reg tiny_funcs[] = {
 	{ "instead_restart", luaB_restart },
 	{ "instead_menu", luaB_menu },
+	{ "instead_clear", luaB_clear },
 	{NULL, NULL}
 };
 
@@ -131,7 +138,7 @@ char *parser_autoload()
 
 int parser_start(const char *file)
 {
-	need_restart = need_load = need_save = 0;
+	need_restart = need_load = need_save = need_clear = 0;
 	if (instead_extension(&ext)) {
 		fprintf(stderr, "Can't register tiny extension\n");
 		return -1;
@@ -193,6 +200,13 @@ int parser_restart(void)
 int parser_load(void)
 {
 	return need_load;
+}
+
+int parser_clear(void)
+{
+	int ov = need_clear;
+	need_clear = 0;
+	return ov;
 }
 
 char *parser_path(void)

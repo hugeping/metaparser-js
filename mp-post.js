@@ -5,7 +5,7 @@ FS.mount(IDBFS,{},'/appdata');
 FS.mkdir('/games');
 FS.mount(MEMFS,{},'/games');
 
-var parser_start, parser_stop, parser_cmd, parser_restart, parser_load, parser_autoload, parser_path
+var parser_start, parser_stop, parser_cmd, parser_restart, parser_load, parser_autoload, parser_path, parser_clear
 
 Module['postRun'].push(function() {
 	console.log("Starting...");
@@ -16,6 +16,7 @@ Module['postRun'].push(function() {
 	parser_autoload = Module.cwrap('parser_autoload', 'string')
 	parser_load = Module.cwrap('parser_load', 'number')
 	parser_path = Module.cwrap('parser_path', 'string')
+	parser_clear = Module.cwrap('parser_clear', 'number')
 
 	var argv = []
 	var req
