@@ -14,7 +14,7 @@ emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 -s BINARYEN_TRAP_MODE=clamp \
 -s PRECISE_F32=1 \
 -s WASM=1 \
--o metaparser.html -s SAFE_HEAP=0  -s TOTAL_MEMORY=201326592 -s ALLOW_MEMORY_GROWTH=1 \
+-o metaparser.html -s SAFE_HEAP=0  -s ALLOW_MEMORY_GROWTH=1 \
 --post-js mp-post.js  \
 --preload-file fs@/
 
