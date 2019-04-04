@@ -40,4 +40,5 @@ metaparser$(EXE): metaparser.c unpack.c unzip.c ioapi.c $(OBJ)
 
 clean:
 	$(RM) -f *.o metaparser$(EXE)
-	$(RM) -rf stead metaparser.data metaparser.html metaparser.js metaparser.wasm
+	$(RM) -rf stead metaparser-wasm.data metaparser-wasm.html metaparser-wasm.js metaparser-wasm.wasm
+	$(RM) -rf stead metaparser-js.data metaparser-js.html metaparser-js.html.mem metaparser-js.js

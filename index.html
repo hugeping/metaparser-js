@@ -18,5 +18,22 @@
 	</div>
 	<div id="metaparser" aria-live="polite" aria-atomic="false" aria-relevant="additions"></div>
 </body>
-	<script async src="metaparser.js"></script>
+	<script>
+	const supported = (() => {
+		try {
+			if (typeof WebAssembly === "object"
+			&& typeof WebAssembly.instantiate === "function") {
+				const module = new WebAssembly.Module(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
+				if (module instanceof WebAssembly.Module)
+				return new WebAssembly.Instance(module) instanceof WebAssembly.Instance;
+			}
+		} catch (e) {
+		}
+		return false;
+	})();
+	var script = document.createElement('script');
+	script.type = 'text/javascript';
+	script.src = supported ? "metaparser-wasm.js" : "metaparser-js.js"
+	$("body").append(script);
+	</script>
 </html>

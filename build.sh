@@ -14,13 +14,24 @@ emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 -s BINARYEN_TRAP_MODE=clamp \
 -s PRECISE_F32=1 \
 -s WASM=1 \
--o metaparser.html -s SAFE_HEAP=0  -s ALLOW_MEMORY_GROWTH=1 \
+-o metaparser-wasm.html -s SAFE_HEAP=0  -s ALLOW_MEMORY_GROWTH=1 \
+--post-js mp-post.js  \
+--preload-file fs@/
+
+emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
+-s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_load', '_parser_path', '_parser_clear']" \
+-s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall", "cwrap", "Pointer_stringify"]' \
+-s QUANTUM_SIZE=4 \
+-s BINARYEN_TRAP_MODE=clamp \
+-s PRECISE_F32=1 \
+-s WASM=0 \
+-o metaparser-js.html -s SAFE_HEAP=0  -s ALLOW_MEMORY_GROWTH=1 \
 --post-js mp-post.js  \
 --preload-file fs@/
 
 #rm -rf release/
 #mkdir release/
-#cp index.html metaparser.js metaparser.wasm metaparser.data release/
+#cp index.html metaparser-wasm.* metaparser-js.* release/
 #cp -R lib release/
 
 echo "Happy hacking"
