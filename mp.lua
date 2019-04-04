@@ -25,7 +25,7 @@ std.mod_start(function()
 	if mp then
 		std.rawset(mp, 'clear', function(self)
 			self.text = ''
-			instead_clear();
+--			instead_clear();
 		end)
 	end
 end)
