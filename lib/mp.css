@@ -30,6 +30,13 @@ body
 	font: inherit;
 	outline: 0;
 	padding: 0;
+	min-width: 35em;
+}
+
+#metaparser img
+{
+	max-width: 40em;
+	max-height: 20em;
 }
 
 #metaparser
