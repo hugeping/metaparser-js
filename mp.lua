@@ -11,6 +11,10 @@ end
 iface.center = html_tag('center')
 iface.bold = html_tag('b')
 iface.em = html_tag('i')
-
+iface.img = function(s, str)
+	if str then
+		return '<g:'..str..'>'
+	end
+end
 instead.restart = instead_restart
 instead.menu = instead_menu

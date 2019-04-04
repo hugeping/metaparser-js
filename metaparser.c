@@ -13,6 +13,7 @@
 #endif
 
 static char game[256];
+static char game_path[PATH_MAX];
 
 static int need_restart = 0;
 static int need_load = 0;
@@ -130,7 +131,6 @@ char *parser_autoload()
 
 int parser_start(const char *file)
 {
-	char path[PATH_MAX];
 	need_restart = need_load = need_save = 0;
 	if (instead_extension(&ext)) {
 		fprintf(stderr, "Can't register tiny extension\n");
@@ -138,13 +138,13 @@ int parser_start(const char *file)
 	}
 	instead_set_debug(0);
 	if (!setup_zip(file))
-		snprintf(path, sizeof(path), "%s/%s", GAMES_PATH, zip_game_dirname);
+		snprintf(game_path, sizeof(game_path), "%s/%s", GAMES_PATH, zip_game_dirname);
 	else
-		snprintf(path, sizeof(path), "%s", file);
+		snprintf(game_path, sizeof(game_path), "%s", file);
 
-	snprintf(game, sizeof(game), "%s", basename(path));
+	snprintf(game, sizeof(game), "%s", basename(game_path));
 
-	if (instead_init(path)) {
+	if (instead_init(game_path)) {
 		fprintf(stderr, "Can not init game.\n");
 		return -1;
 	}
@@ -193,4 +193,9 @@ int parser_restart(void)
 int parser_load(void)
 {
 	return need_load;
+}
+
+char *parser_path(void)
+{
+	return game_path;
 }
