@@ -37,7 +37,7 @@ function gen_game(v)
   <title>Текстовая игра «%s»</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="description" content="Описание игры %s.">
-  <link rel="stylesheet" href="style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/games/style.css" type="text/css" media="all">
 </head>
 
 <body>

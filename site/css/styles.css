@@ -2,6 +2,10 @@
 	white-space: pre-wrap;
 }
 
+.container {
+	max-width: 64em;
+}
+
 .headline {
 	display: flex;
 	align-items: center;
