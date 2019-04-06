@@ -1,0 +1,13 @@
+.dsc {
+	white-space: pre-wrap;
+}
+
+.headline {
+	display: flex;
+	align-items: center;
+}
+
+.logo {
+	max-width: 128px;
+	margin: 1em;
+}
