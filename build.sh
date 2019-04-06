@@ -5,7 +5,8 @@ LIB="$WORKSPACE/lib"
 INC="$WORKSPACE/include"
 emmake make clean
 emmake make EXTRA_CFLAGS=-I"$INC"
-test -d fs || { mkdir fs && cp -R stead fs/;  }
+
+test -d fs || { mkdir fs && cp -R stead fs/ && for d in dbg.lua dbg-ru.lua ext/gui.lua ext/sandbox.lua ext/sound.lua ext/sprites.lua ext/timer.lua finger.lua keys.lua click.lua CMakeLists.txt; do rm fs/stead/stead3/$d; done;  }
 
 emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 -s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_load', '_parser_path', '_parser_clear']" \
@@ -29,10 +30,7 @@ emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 --post-js mp-post.js  \
 --preload-file fs@/
 
-#rm -rf release/
-#mkdir release/
-#cp index.html metaparser-wasm.* metaparser-js.* release/
-#cp -R lib release/
+cp -f metaparser-wasm.* metaparser-js.* site/games/ && rm -f site/games/*.html && cp -f index.html site/games
 
 echo "Happy hacking"
 python2.7 -m SimpleHTTPServer 8000
