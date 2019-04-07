@@ -1,5 +1,4 @@
-#!/usr/bin/env lua
-local header=[[<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 	<meta charset="utf-8">
@@ -24,8 +23,55 @@ local header=[[<!DOCTYPE html>
 </div>
 </div>
 <hr />
-]]
-local feedback=[[
+
+<div class="row">
+<div class="col-sm-4">
+<div class="thumbnail">
+<p class="text-center">
+<a href="games/mars/index.html"><img class="img-rounded" src="games/mars/mars.png"" alt="" width="128px"></a>
+</p>
+<div class="caption">
+<h4 class="text-center"><a href="games/mars/index.html">Другой Марс</a></h4><p class="dsc">Игра по мотивам произведений Р. Шекли.
+<i>Автор: Пётр Косых</i></p>
+</div>
+</div>
+</div>
+<div class="col-sm-4">
+<div class="thumbnail">
+<p class="text-center">
+<a href="games/snowstorm/index.html"><img class="img-rounded" src="games/snowstorm/snowstorm.png"" alt="" width="128px"></a>
+</p>
+<div class="caption">
+<h4 class="text-center"><a href="games/snowstorm/index.html">Метель</a></h4><p class="dsc">Что тебя ждёт за снежной пеленой?
+<i>Автор: Пётр Косых</i></p>
+</div>
+</div>
+</div>
+<div class="col-sm-4">
+<div class="thumbnail">
+<p class="text-center">
+<a href="games/summerday/index.html"><img class="img-rounded" src="games/summerday/summerday.png"" alt="" width="128px"></a>
+</p>
+<div class="caption">
+<h4 class="text-center"><a href="games/summerday/index.html">Один день лета</a></h4><p class="dsc">Приключения из детства.
+<i>Автор: Пётр Косых</i></p>
+</div>
+</div>
+</div>
+</div> <!-- row -->
+<div class="row">
+<div class="col-sm-4">
+<div class="thumbnail">
+<p class="text-center">
+<a href="games/deadhand/index.html"><img class="img-rounded" src="games/deadhand/deadhand.png"" alt="" width="128px"></a>
+</p>
+<div class="caption">
+<h4 class="text-center"><a href="games/deadhand/index.html">Судный день</a></h4><p class="dsc">Короткая зарисовка об одиноком космонавте.
+<i>Автор: Пётр Косых</i></p>
+</div>
+</div>
+</div>
+</div> <!-- row -->
 	<hr/>
 	<div class="row">
 	<div class="col-sm-12">
@@ -37,8 +83,6 @@ local feedback=[[
 	<br/>Ваша поддержка помогает двигаться вперёд!</p>
 	</div>
 	</div>
-]]
-local donate=[[
 <div style="overflow-x: visible" class="donate">
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
@@ -48,9 +92,6 @@ local donate=[[
 </form>
 <iframe src="https://money.yandex.ru/quickpay/shop-widget?writer=buyer&targets=&targets-hint=%D0%9D%D0%B0%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82&default-sum=50&button-text=11&payment-type-choice=on&mobile-payment-type-choice=on&hint=&successURL=&quickpay=shop&account=41001612955830" width="450" height="224" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
 </div>
-]]
-
-local disquss =[[
 <div id="disqus_thread"></div>
 <script>
 
@@ -71,111 +112,7 @@ s.setAttribute('data-timestamp', +new Date());
 })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-]]
-
-local footer=feedback..donate..disquss..[[
 </div> <!-- container -->
 </body>
 </html>
-]]
 
-function gen_game(v)
-	local text = string.format([[<html><head>
-  <title>Текстовая игра «%s»</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="description" content="Описание игры %s.">
-  <link rel="stylesheet" href="/games/style.css" type="text/css" media="all">
-</head>
-
-<body>
-
-<div class="container">
-
-<div class="coverimage">
-  <span><img src=%q border="0"></span>
-</div>
-
-<div class="introduction">
-  <h1>
-    <span>%s</span>
-  </h1>
-  <h2>
-    <span>%s</span>
-  </h2>
-  <div class="bibliography">
-    <span>%s</span>
-  </div>
-</div>
-
-<div class="links">
-  <ul>
-    <li><a href="../index.html?%s">Играть онлайн</a></li>
-    <br />]], v.nam, v.nam, v.pic, v.nam, v.info, v.author, v.dir .. '/'.. v.data)
-	for k, l in ipairs(v.links or {}) do
-		text = text .. string.format([[<li><a href=%q>%s</a></li>]], l[2], l[1])
-	end
-	text = text .. string.format([[
-  </ul>
-</div>
-
-<div class="about">
-  <span><p class="dsc">%s
-</p></span>
-</div>
-
-<div class="playinfo">
-  <p><i>%s</i> — это текстовая игра, созданная с помощью модуля <a href="https://instead-hub.github.io/page/metaparser/">МЕТАПАРСЕР-3</a> для движка <a href="https://instead-hub.github.io">INSTEAD</a>.
-Здесь вы можете поиграть в адаптированную версию игры в режиме онлайн.
-Полные версии этой и других игр вы найдёте на <a href="http://instead-games.ru">instead-games.ru</a>.
-  </p>
-</div>]], v.dsc, v.nam)..disquss..[[</div></body></html>]];
-	return text
-end
-
-local games = {
-	"mars", "snowstorm", "summerday", "deadhand",
-}
-local g = {}
-for _, v in ipairs(games) do
-	local path = "games/"..v
-	local t = dofile(path.."/info.lua")
-	t.dir = v
-	table.insert(g, t)
-	local f = io.open(path.."/index.html", "w")
-	f:write(gen_game(t))
-	f:close()
-end
-games = g
-
-local GRID = 3
-function gen()
-	print(header)
-	for k, v in ipairs(games) do
-		local y = (k - 1) % GRID
-		if y == 0 then
-			print([[<div class="row">]])
-		end
-		print([[<div class="col-sm-4">]])
-		print([[<div class="thumbnail">]])
-
-		print([[<p class="text-center">]]);
-		print(string.format([[<a href=%q><img class="img-rounded" src=%q" alt="" width="128px"></a>]],
-			"games/"..v.dir.."/index.html", 'games/'..v.dir .. '/'..v.pic));
-		print([[</p>]]);
-		print([[<div class="caption">]])
-		print(string.format([[<h4 class="text-center"><a href=%q>%s</a></h4><p class="dsc">%s
-<i>Автор: %s</i></p>]],
-			"games/"..v.dir.."/index.html", v.nam, v.info, v.author));
-		print([[</div>]])
-
-		print([[</div>]])
-		print([[</div>]])
-		if y == GRID - 1 or k == #games then
-			print([[</div> <!-- row -->]])
-		end
-	end
-	print(footer)
-end
-
-
-gen()

@@ -1,3 +1,7 @@
+.donate {
+	max-width: 33em;
+	margin: 0 auto;
+}
 .dsc {
 	white-space: pre-wrap;
 }
@@ -13,5 +17,5 @@
 
 .logo {
 	max-width: 128px;
-	margin: 1em;
+	margin: 2em 1em 1em 1em;
 }

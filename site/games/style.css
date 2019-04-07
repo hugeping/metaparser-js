@@ -71,7 +71,7 @@ a:hover
 
 .coverimage img
 {
-//	max-width: 192px;
+	max-width: 192px;
 } 
 
 
@@ -128,7 +128,7 @@ h2 { font-size: 1em;}
 
 .about
 {
-	margin-top: 2.8em;
+	margin-top: 2.0em;
 //	margin-left: 1.6em;
 	max-width: 33em;
 	text-align: left;
