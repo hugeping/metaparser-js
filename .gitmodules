@@ -1,3 +1,6 @@
 [submodule "instead"]
 	path = instead
 	url = git://github.com/instead-hub/instead.git
+[submodule "site"]
+	path = site
+	url = https://github.com/gl00my/metaparser.www.git
