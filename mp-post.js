@@ -34,6 +34,7 @@ Module['postRun'].push(function() {
 		}
 	}
 	var crossio = "https://cors-anywhere.herokuapp.com/";
+	// crossio = "https://proxy.iplayif.com/proxy/?url="
 	if (!url && typeof window === "object") {
 		argv = window.location.search.substr(1).trim().split('&');
 		if (!argv[0])

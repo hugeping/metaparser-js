@@ -32,5 +32,5 @@ emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 
 cp -f metaparser-wasm.* metaparser-js.* site/games/ && rm -f site/games/*.html && cp -f index.html site/games
 cp -rf lib/* site/games/lib/
-echo "Happy hacking"
-python2.7 -m SimpleHTTPServer 8000
+# echo "Happy hacking"
+# python2.7 -m SimpleHTTPServer 8000
