@@ -46,9 +46,10 @@ Module['postRun'].push(function() {
 		}
 	}
 
-	if (!url)
-		url='data.zip?'+(Math.random()*10000000);
-
+	if (!url) {
+		url='data.zip';
+	}
+	url = url + '?' + (Math.random()*10000000);
 	req = new XMLHttpRequest();
 	req.open("GET", url, true);
 	req.responseType = "arraybuffer";
