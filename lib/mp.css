@@ -16,8 +16,12 @@ body
 
 #metaparser
 {
-	white-space: pre-wrap;
 	max-width: 40em;
+}
+
+#transcript
+{
+	white-space: pre-wrap;
 }
 
 /* Line input */
