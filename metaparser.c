@@ -96,8 +96,7 @@ void data_sync(void)
 }
 static const char *em_beforeunload(int eventType, const void *reserved, void *userData)
 {
-	parser_autosave();
-	data_sync();
+//	parser_autosave();
 	return NULL;
 }
 #endif
