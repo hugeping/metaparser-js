@@ -49,6 +49,7 @@ Module['postRun'].push(function() {
 	if (!url) {
 		url='data.zip';
 	}
+	var baseurl = url
 	url = url + '?' + (Math.random()*10000000);
 	req = new XMLHttpRequest();
 	req.open("GET", url, true);
@@ -66,7 +67,7 @@ Module['postRun'].push(function() {
 			if (error) {
 				console.log("Error while syncing: ", error);
 			}
-			url = basename(url);
+			url = basename(baseurl);
 			console.log("Writing: ", url);
 			FS.writeFile(url, new Int8Array(data), { encoding: 'binary' }, "w");
 			console.log("Running...");
