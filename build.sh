@@ -5,8 +5,9 @@ LIB="$WORKSPACE/lib"
 INC="$WORKSPACE/include"
 emmake make clean
 emmake make EXTRA_CFLAGS=-I"$INC"
+STEAD_BLACKLIST="dbg.lua dbg-ru.lua ext/gui.lua ext/sandbox.lua ext/sound.lua ext/sprites.lua ext/timer.lua finger.lua keys.lua click.lua CMakeLists.txt"
 
-test -d fs || { mkdir fs && cp -R stead fs/ && for d in dbg.lua dbg-ru.lua ext/gui.lua ext/sandbox.lua ext/sound.lua ext/sprites.lua ext/timer.lua finger.lua keys.lua click.lua CMakeLists.txt; do rm fs/stead/stead3/$d; done;  }
+test -d fs || { mkdir fs && cp -R stead fs/ && for d in $STEAD_BLACKLIST; do rm fs/stead/stead3/$d; done;  }
 
 emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 -s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_load', '_parser_path', '_parser_clear']" \

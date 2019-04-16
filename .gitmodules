@@ -6,3 +6,7 @@
 	path = instead
 	url = https://github.com/instead-hub/instead.git
 	branch = master
+[submodule "metaparser"]
+	path = metaparser
+	url = https://github.com/instead-hub/metaparser.git
+	branch = master
