@@ -1,0 +1,5 @@
+1.5
+    * ARIA friendly html structure;
+    * title is changed while game is running;
+    * fixes in js part;
+    * metaparser 1.5 included.

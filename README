@@ -1,0 +1,9 @@
+Add metaparser game as data.zip or uncomment tag <!--	<meta name="gamefile" content="yourgame.zip"> --> in index.html
+You also can make links like this: https://mygamesite/instead.html?mygame.zip
+
+NOTE: You can remove metaparser-js* files if you want to use WASM version only!
+If so, replace <script> <!-- WASM detector --> .... </script> with <script async src="metaparser-wasm.js"></script>
+
+Happy hacking!
+
+Hint: python2.7 -m SimpleHTTPServer 8000

@@ -5,9 +5,14 @@ LIB="$WORKSPACE/lib"
 INC="$WORKSPACE/include"
 emmake make clean
 emmake make EXTRA_CFLAGS=-I"$INC"
-STEAD_BLACKLIST="dbg.lua dbg-ru.lua ext/gui.lua ext/sandbox.lua ext/sound.lua ext/sprites.lua ext/timer.lua finger.lua keys.lua click.lua CMakeLists.txt"
 
-test -d fs || { mkdir fs && cp -R stead fs/ && for d in $STEAD_BLACKLIST; do rm fs/stead/stead3/$d; done;  }
+STEAD_BLACKLIST="dbg.lua dbg-ru.lua ext/gui.lua ext/sandbox.lua ext/sound.lua ext/sprites.lua ext/timer.lua finger.lua keys.lua click.lua CMakeLists.txt"
+MP_BLACKLIST="morph/morphs.mrd"
+
+test -d fs || { mkdir fs && cp -R stead fs/ && \
+for d in $STEAD_BLACKLIST; do rm fs/stead/stead3/$d; done;\
+cp -R metaparser/morph fs/stead/stead3/ && cp -R metaparser/parser fs/stead/stead3/ && \
+for d in $MP_BLACKLIST; do rm fs/stead/stead3/$d; done; }
 
 emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 -s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_load', '_parser_path', '_parser_clear']" \
@@ -18,8 +23,8 @@ emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 -s WASM=1 \
 -o metaparser-wasm.html -s SAFE_HEAP=0  -s ALLOW_MEMORY_GROWTH=1 \
 --post-js mp-post.js  \
---preload-file fs@/
-
+--preload-file fs@/ && \
+\
 emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 -s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_load', '_parser_path', '_parser_clear']" \
 -s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall", "cwrap", "Pointer_stringify"]' \
@@ -31,7 +36,11 @@ emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 --post-js mp-post.js  \
 --preload-file fs@/
 
-cp -f metaparser-wasm.* metaparser-js.* site/games/ && rm -f site/games/*.html && cp -f index.html site/games
-cp -rf lib/* site/games/lib/
-# echo "Happy hacking"
-# python2.7 -m SimpleHTTPServer 8000
+
+test -d release || mkdir release
+test -d release/lib || mkdir release/lib
+
+cp -f metaparser-wasm.* metaparser-js.* release/ && rm -f release/*.html && cp -f index.html release/
+cp -rf lib/* release/lib && cp -f README release/ && cp -f ChangeLog release/
+
+cp -f release/metaparser-wasm.* release/metaparser-js.* site/games/ && cp -f release/index.html site/games && cp -rf release/lib/* site/games/lib/
