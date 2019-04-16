@@ -1,8 +1,8 @@
-[submodule "instead"]
-	path = instead
-	url = git://github.com/instead-hub/instead.git
-	branch = master
 [submodule "site"]
 	path = site
 	url = https://github.com/gl00my/metaparser.www.git
+	branch = master
+[submodule "instead"]
+	path = instead
+	url = https://github.com/instead-hub/instead.git
 	branch = master
