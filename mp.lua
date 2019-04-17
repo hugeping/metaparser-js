@@ -14,7 +14,7 @@ iface.bold = html_tag('b')
 iface.em = html_tag('i')
 iface.img = function(s, str)
 	if str then
-		instead.clear() -- always clear window on pictures
+--		instead.clear() -- always clear window on pictures
 		return '<g:'..str..'>'
 	end
 end
