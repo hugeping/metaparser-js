@@ -3,8 +3,9 @@ export WORKSPACE="/home/peter/Devel/emsdk-portable/env"
 
 LIB="$WORKSPACE/lib"
 INC="$WORKSPACE/include"
+
 emmake make clean
-emmake make EXTRA_CFLAGS=-I"$INC"
+emmake make EXTRA_CFLAGS=-I"$INC"\ -Wno-macro-redefined
 
 STEAD_BLACKLIST="dbg.lua dbg-ru.lua ext/gui.lua ext/sandbox.lua ext/sound.lua ext/sprites.lua ext/timer.lua finger.lua keys.lua click.lua CMakeLists.txt"
 MP_BLACKLIST="morph/morphs.mrd"
