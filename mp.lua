@@ -22,6 +22,7 @@ instead.restart = instead_restart
 instead.menu = instead_menu
 instead.clear = instead_clear
 instead.tiny = true -- minimal version
+instead.run_js = instead_js
 
 std.mod_start(function()
 	local mp = std.ref '@metaparser'

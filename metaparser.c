@@ -41,11 +41,19 @@ static int luaB_clear(lua_State *L) {
 	return 0;
 }
 
+static int luaB_js_script(lua_State *L) {
+	const char *scr = luaL_optstring(L, 1, NULL);
+	if (scr)
+		emscripten_run_script(scr);
+	return 0;
+}
+
 static const luaL_Reg tiny_funcs[] = {
 	{ "instead_restart", luaB_restart },
 	{ "instead_menu", luaB_menu },
 	{ "instead_clear", luaB_clear },
-	{NULL, NULL}
+	{ "instead_js", luaB_js_script },
+	{ NULL, NULL }
 };
 
 static int tiny_init(void)
