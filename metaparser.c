@@ -22,7 +22,8 @@ static int need_clear = 0;
 
 static void parser_autosave();
 
-static int luaB_menu(lua_State *L) {
+static int luaB_menu(lua_State *L)
+{
 	const char *menu = luaL_optstring(L, 1, NULL);
 	if (!menu)
 		return 0;
@@ -31,17 +32,20 @@ static int luaB_menu(lua_State *L) {
 	return 0;
 }
 
-static int luaB_restart(lua_State *L) {
+static int luaB_restart(lua_State *L)
+{
 	need_restart = !lua_isboolean(L, 1) || lua_toboolean(L, 1);
 	return 0;
 }
 
-static int luaB_clear(lua_State *L) {
+static int luaB_clear(lua_State *L)
+{
 	need_clear = 1;
 	return 0;
 }
 
-static int luaB_js_script(lua_State *L) {
+static int luaB_js_script(lua_State *L)
+{
 	const char *scr = luaL_optstring(L, 1, NULL);
 	if (scr)
 		emscripten_run_script(scr);
