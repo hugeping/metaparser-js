@@ -1,11 +1,11 @@
 export WORKSPACE="/home/peter/Devel/emsdk-portable/env"
-. /home/peter/Devel/emsdk-portable/emsdk_env.sh
+. /home/peter/Devel/emsdk-portable/env/emsdk_env.sh
 
 LIB="$WORKSPACE/lib"
 INC="$WORKSPACE/include"
 
 emmake make clean
-emmake make EXTRA_CFLAGS=-I"$INC"\ -Wno-macro-redefined
+LDFLAGS=-r emmake make EXTRA_CFLAGS=-I"$INC"\ -Wno-macro-redefined
 
 STEAD_BLACKLIST="dbg.lua dbg-ru.lua ext/gui.lua ext/sandbox.lua ext/sound.lua ext/sprites.lua ext/timer.lua finger.lua keys.lua click.lua CMakeLists.txt"
 MP_BLACKLIST="morph/morphs.mrd"
@@ -15,22 +15,23 @@ for d in $STEAD_BLACKLIST; do rm fs/stead/stead3/$d; done;\
 cp -R metaparser/morph fs/stead/stead3/ && cp -R metaparser/parser fs/stead/stead3/ && \
 for d in $MP_BLACKLIST; do rm fs/stead/stead3/$d; done; }
 
+ # -s BINARYEN_TRAP_MODE=clamp
 emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
+-lidbfs.js \
 -s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_load', '_parser_path', '_parser_clear']" \
 -s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall", "cwrap", "Pointer_stringify"]' \
 -s QUANTUM_SIZE=4 \
--s BINARYEN_TRAP_MODE=clamp \
 -s PRECISE_F32=1 \
 -s WASM=1 \
 -o metaparser-wasm.html -s SAFE_HEAP=0  -s ALLOW_MEMORY_GROWTH=1 \
 --post-js mp-post.js  \
---preload-file fs@/ && \
-\
+--preload-file fs@/ \
+&& \
 emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
+-lidbfs.js \
 -s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_load', '_parser_path', '_parser_clear']" \
 -s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall", "cwrap", "Pointer_stringify"]' \
 -s QUANTUM_SIZE=4 \
--s BINARYEN_TRAP_MODE=clamp \
 -s PRECISE_F32=1 \
 -s WASM=0 \
 -o metaparser-js.html -s SAFE_HEAP=0  -s ALLOW_MEMORY_GROWTH=1 \
