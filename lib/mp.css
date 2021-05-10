@@ -8,6 +8,7 @@ body
 {
 	background: #FFF;
 	color: #000;
+	background-color: #ffffe8;
 	font-family: Georgia, Palatino, serif;
 	font-size: 16px;
 	margin: 0.5em;
@@ -44,7 +45,7 @@ body
 
 #metaparser
 {
-	margin: 0 auto;
+	margin: 1em auto 1em auto;
 	text-align: left;
 }
 
