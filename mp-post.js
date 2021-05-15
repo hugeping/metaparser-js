@@ -5,7 +5,7 @@ FS.mount(IDBFS,{},'/appdata');
 FS.mkdir('/games');
 FS.mount(MEMFS,{},'/games');
 
-var parser_start, parser_stop, parser_cmd, parser_restart, parser_load, parser_autoload, parser_path, parser_clear
+var parser_start, parser_stop, parser_cmd, parser_restart, parser_load, parser_load, parser_autoload, parser_autosave, parser_path, parser_clear, parser_savename
 
 function startsWith(str, word) {
 	return str.lastIndexOf(word, 0) === 0;
@@ -18,9 +18,12 @@ Module['postRun'].push(function() {
 	parser_stop = Module.cwrap('parser_stop', null)
 	parser_cmd = Module.cwrap('parser_cmd', 'string', ['string'])
 	parser_autoload = Module.cwrap('parser_autoload', 'string')
+	parser_autosave = Module.cwrap('parser_autosave', 'string')
 	parser_load = Module.cwrap('parser_load', 'number')
+	parser_save = Module.cwrap('parser_save', 'number')
 	parser_path = Module.cwrap('parser_path', 'string')
 	parser_clear = Module.cwrap('parser_clear', 'number')
+	parser_savename = Module.cwrap('parser_savename', 'string')
 
 	var argv = []
 	var req

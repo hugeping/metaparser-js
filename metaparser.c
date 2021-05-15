@@ -19,8 +19,9 @@ static int need_restart = 0;
 static int need_load = 0;
 static int need_save = 0;
 static int need_clear = 0;
+static char *savename = NULL;
 
-static void parser_autosave();
+char *parser_autosave();
 
 static int luaB_menu(lua_State *L)
 {
@@ -44,6 +45,16 @@ static int luaB_clear(lua_State *L)
 	return 0;
 }
 
+static int luaB_savename(lua_State *L)
+{
+	const char *name = luaL_optstring(L, 1, NULL);
+	free(savename);
+	savename = NULL;
+	if (name)
+		savename = strdup(name);
+	return 0;
+}
+
 static int luaB_js_script(lua_State *L)
 {
 	const char *scr = luaL_optstring(L, 1, NULL);
@@ -55,6 +66,7 @@ static int luaB_js_script(lua_State *L)
 static const luaL_Reg tiny_funcs[] = {
 	{ "instead_restart", luaB_restart },
 	{ "instead_menu", luaB_menu },
+	{ "instead_savename", luaB_savename },
 	{ "instead_clear", luaB_clear },
 	{ "instead_js", luaB_js_script },
 	{ NULL, NULL }
@@ -113,22 +125,24 @@ static const char *em_beforeunload(int eventType, const void *reserved, void *us
 }
 #endif
 
-static void parser_autosave()
+char *parser_autosave()
 {
 	char *p;
 	char path[PATH_MAX];
 	if (!game[0])
-		return;
+		return NULL;
 	mkdir("/appdata/saves/", S_IRWXU);
 	snprintf(path, sizeof(path), "/appdata/saves/%s", game);
 	mkdir(path, S_IRWXU);
-	snprintf(path, sizeof(path), "save /appdata/saves/%s/autosave", game);
+	if (savename)
+		snprintf(path, sizeof(path), "save /appdata/saves/%s/%s", game, savename);
+	else
+		snprintf(path, sizeof(path), "save /appdata/saves/%s/autosave", game);
 	p = instead_cmd(path, NULL);
-	if (p)
-		free(p);
 #ifdef __EMSCRIPTEN__
 	data_sync();
 #endif
+	return p;
 }
 
 char *parser_autoload()
@@ -140,7 +154,10 @@ char *parser_autoload()
 	snprintf(path, sizeof(path), "/appdata/saves/%s/autosave", game);
 	if (access(path, R_OK))
 		return parser_cmd("look");
-	snprintf(path, sizeof(path), "load /appdata/saves/%s/autosave", game);
+	if (savename)
+		snprintf(path, sizeof(path), "load /appdata/saves/%s/%s", game, savename);
+	else
+		snprintf(path, sizeof(path), "load /appdata/saves/%s/autosave", game);
 	p = parser_cmd(path);
 	if (p)
 		return p;
@@ -176,31 +193,15 @@ int parser_start(const char *file)
 	return 0;
 }
 
-static char *buf = NULL;
-
 void parser_stop(void)
 {
 	instead_done();
-	if (buf)
-		free(buf);
-	buf = NULL;
 	game[0] = 0;
 }
 
 char *parser_cmd(char *cmd)
 {
-	char *ret = instead_cmd(cmd, NULL);
-	if (buf)
-		free(buf);
-	if (need_save) {
-		if (ret)
-			free(ret);
-		ret = strdup("<i>Saved.</i>");
-		parser_autosave();
-	}
-	buf = ret;
-	need_save = 0;
-	return ret;
+	return instead_cmd(cmd, NULL);
 }
 
 int parser_restart(void)
@@ -210,7 +211,16 @@ int parser_restart(void)
 
 int parser_load(void)
 {
-	return need_load;
+	int n = need_load;
+	need_load = 0; /* run only once! */
+	return n;
+}
+
+int parser_save(void)
+{
+	int n = need_save;
+	need_save = 0; /* run only once! */
+	return n;
 }
 
 int parser_clear(void)
@@ -218,6 +228,12 @@ int parser_clear(void)
 	int ov = need_clear;
 	need_clear = 0;
 	return ov;
+}
+char *parser_savename(void)
+{
+	if (!savename)
+		return "autosave";
+	return savename;
 }
 
 char *parser_path(void)

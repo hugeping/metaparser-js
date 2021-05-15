@@ -23,6 +23,7 @@ instead.menu = instead_menu
 instead.clear = instead_clear
 instead.tiny = true -- minimal version
 instead.run_js = instead_js
+instead.savename = instead_savename
 
 std.mod_start(function()
 	local mp = std.ref '@metaparser'
@@ -32,6 +33,22 @@ std.mod_start(function()
 			self.text = ''
 			-- uncomment to clear screen on move
 --			instead.clear();
+		end)
+		VerbExtend ({
+			"#MetaSave",
+			"*:MetaSave",
+		}, mp)
+		VerbExtend ({
+			"#MetaLoad",
+			"*:MetaLoad",
+		}, mp)
+		std.rawset(mp, 'MetaSave', function(self, w)
+			instead.savename(w)
+			instead.menu 'save'
+		end)
+		std.rawset(mp, 'MetaLoad', function(self, w)
+			instead.savename(w)
+			instead.menu 'load'
 		end)
 	end
 end)
