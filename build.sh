@@ -1,5 +1,5 @@
-export WORKSPACE="/home/peter/Devel/emsdk-portable/env"
-. /home/peter/Devel/emsdk-portable/env/emsdk_env.sh
+export WORKSPACE="/home/peter/Devel/emsdk/env"
+. /home/peter/Devel/emsdk/emsdk_env.sh
 
 LIB="$WORKSPACE/lib"
 INC="$WORKSPACE/include"
