@@ -195,7 +195,7 @@ char *parser_cmd(char *cmd)
 	if (need_save) {
 		if (ret)
 			free(ret);
-		ret = strdup("<i>Игра сохранена.</i>");
+		ret = strdup("<i>Saved.</i>");
 		parser_autosave();
 	}
 	buf = ret;
