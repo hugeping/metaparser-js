@@ -1,6 +1,6 @@
 [submodule "site"]
 	path = site
-	url = https://github.com/gl00my/metaparser.www.git
+	url = git@github.com:gl00my/metaparser.www.git
 	branch = master
 [submodule "instead"]
 	path = instead
