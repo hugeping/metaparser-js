@@ -29,7 +29,7 @@ emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 && \
 emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 -lidbfs.js \
--s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_load', '_parser_path', '_parser_clear']" \
+-s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_autosave', '_parser_load', '_parser_save', '_parser_path', '_parser_clear', '_parser_savename']" \
 -s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall", "cwrap", "Pointer_stringify"]' \
 -s QUANTUM_SIZE=4 \
 -s PRECISE_F32=1 \
