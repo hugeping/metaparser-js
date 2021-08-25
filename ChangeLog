@@ -1,3 +1,7 @@
+2.2.1
+    * fix with js build;
+    * better aria compat.
+
 2.2
     * metaparser 2.2 included.
 
