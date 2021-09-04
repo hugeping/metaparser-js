@@ -1,3 +1,7 @@
+2.2.2
+    * fix with save;
+    * mp updated from git.
+
 2.2.1
     * fix with js build;
     * better aria compat.
