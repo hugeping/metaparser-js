@@ -159,7 +159,7 @@ char *parser_autoload()
 	if (access(path, R_OK))
 		return parser_cmd("look");
 	snprintf(cmd, sizeof(cmd), "load %s", path);
-	p = parser_cmd(path);
+	p = parser_cmd(cmd);
 	if (p)
 		return p;
 	return parser_cmd("look");
