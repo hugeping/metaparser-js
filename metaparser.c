@@ -151,13 +151,12 @@ char *parser_autoload()
 	char path[PATH_MAX];
 	if (!game[0])
 		return NULL;
-	snprintf(path, sizeof(path), "/appdata/saves/%s/autosave", game);
-	if (access(path, R_OK))
-		return parser_cmd("look");
 	if (savename)
 		snprintf(path, sizeof(path), "load /appdata/saves/%s/%s", game, savename);
 	else
 		snprintf(path, sizeof(path), "load /appdata/saves/%s/autosave", game);
+	if (access(path, R_OK))
+		return parser_cmd("look");
 	p = parser_cmd(path);
 	if (p)
 		return p;
