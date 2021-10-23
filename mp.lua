@@ -28,11 +28,11 @@ instead.savename = instead_savename
 std.mod_start(function()
 	local mp = std.ref '@metaparser'
 	if mp then
-		mp.msg.CUTSCENE_MORE = '^'..mp.msg.CUTSCENE_HELP
+		mp.msg.CUTSCENE_HELP = mp.msg.CUTSCENE_HELP:gsub("<", "&lt"):gsub(">", "&gt");
 		std.rawset(mp, 'clear', function(self)
 			self.text = ''
 			-- uncomment to clear screen on move
---			instead.clear();
+			-- instead.clear();
 		end)
 		VerbExtend ({
 			"#MetaSave",
