@@ -1,6 +1,6 @@
 2.4
     * mp 2.4;
-    * !ls, !rm commands;
+    * !ls, !rm, !restart commands;
     * download/upload save files;
     * download transscript file;
     * i18n (en/ru).
