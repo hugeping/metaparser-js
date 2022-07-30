@@ -1,5 +1,11 @@
 export WORKSPACE="/home/peter/Devel/emsdk/env"
-. /home/peter/Devel/emsdk/emsdk_env.sh
+
+if [ -z "$WORKSPACE" ]; then
+	echo "Define WORKSPACE path in $0"
+	exit 1
+fi
+
+. /home/peter/Devel/emsdk/emsdk/emsdk_env.sh
 
 LIB="$WORKSPACE/lib"
 INC="$WORKSPACE/include"
@@ -19,7 +25,7 @@ for d in $MP_BLACKLIST; do rm fs/stead/stead3/$d; done; }
 emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 -lidbfs.js \
 -s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_autosave', '_parser_load', '_parser_save', '_parser_path', '_parser_clear', '_parser_savename']" \
--s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall", "cwrap", "Pointer_stringify"]' \
+-s 'EXPORTED_RUNTIME_METHODS=["ccall", "cwrap", "Pointer_stringify"]' \
 -s QUANTUM_SIZE=4 \
 -s PRECISE_F32=1 \
 -s WASM=1 \
@@ -30,7 +36,7 @@ emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 emcc -O2 metaparser.bc $LIB/liblua.a $LIB/libz.a \
 -lidbfs.js \
 -s EXPORTED_FUNCTIONS="['_parser_start','_parser_stop','_parser_cmd','_parser_restart', '_parser_autoload', '_parser_autosave', '_parser_load', '_parser_save', '_parser_path', '_parser_clear', '_parser_savename']" \
--s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall", "cwrap", "Pointer_stringify"]' \
+-s 'EXPORTED_RUNTIME_METHODS=["ccall", "cwrap", "Pointer_stringify"]' \
 -s QUANTUM_SIZE=4 \
 -s PRECISE_F32=1 \
 -s WASM=0 \

@@ -23,7 +23,7 @@ fi
 export CFLAGS="-g0 -O2"
 export CXXFLAGS="$CFLAGS"
 export EM_CFLAGS="-Wno-warn-absolute-paths"
-export EMMAKEN_CFLAGS="$EM_CFLAGS"
+export EMMCC_CFLAGS="$EM_CFLAGS"
 export PKG_CONFIG_PATH="$WORKSPACE/lib/pkgconfig"
 export MAKEFLAGS="-j2"
 
@@ -35,9 +35,9 @@ export LDSHARED="$LD"
 export RANLIB="emranlib"
 export AR="emar"
 
-
 # Lua
 cd $WORKSPACE
+if ! test -r .stamp_lua; then
 rm -rf lua-5.1.5
 [ -f lua-5.1.5.tar.gz ] || wget -nv 'https://www.lua.org/ftp/lua-5.1.5.tar.gz'
 tar xf lua-5.1.5.tar.gz
@@ -46,13 +46,17 @@ cat src/luaconf.h | sed -e 's/#define LUA_USE_POPEN//g' -e 's/#define LUA_USE_UL
 mv src/luaconf.h.new src/luaconf.h
 emmake make posix CC=emcc 
 emmake make install INSTALL_TOP=$WORKSPACE 
+touch ../.stamp_lua
+fi
 
 # zlib
 cd $WORKSPACE
-rm -rf zlib-1.2.11/
-[ -f zlib-1.2.11.tar.gz ] || wget -nv 'http://zlib.net/zlib-1.2.11.tar.gz'
-tar xf zlib-1.2.11.tar.gz
-cd zlib-1.2.11
+if ! test -r .stamp_zlib; then
+rm -rf zlib-1.2.12/
+[ -f zlib-1.2.12.tar.gz ] || wget -nv 'http://zlib.net/zlib-1.2.12.tar.gz'
+tar xf zlib-1.2.12.tar.gz
+cd zlib-1.2.12
 emconfigure ./configure --prefix=$WORKSPACE
 emmake make install
-
+touch ../.stamp_zlib
+fi
