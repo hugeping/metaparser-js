@@ -14,11 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Submodules
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git submodule init
-          git submodule update
+          git submodule update instead
+          git submodule update metaparser
 
       - name: Cache emsdk
         id: cache-emsdk
