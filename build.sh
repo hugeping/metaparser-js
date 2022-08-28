@@ -57,4 +57,4 @@ test -d release/lib || mkdir release/lib
 cp -f metaparser-wasm.* metaparser-js.* release/ && rm -f release/*.html && cp -f index.html release/
 cp -rf lib/* release/lib && cp -f README release/ && cp -f ChangeLog release/
 
-cp -f release/metaparser-wasm.* release/metaparser-js.* site/games/ && cp -f release/index.html site/games && cp -rf release/lib/* site/games/lib/
+# cp -f release/metaparser-wasm.* release/metaparser-js.* site/games/ && cp -f release/index.html site/games && cp -rf release/lib/* site/games/lib/
