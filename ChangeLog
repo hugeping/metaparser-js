@@ -1,3 +1,6 @@
+2.5
+    * updated emscripten.
+
 2.4
     * mp 2.4;
     * !ls, !rm, !restart commands;
