@@ -1,9 +1,6 @@
 name: CI
 on:
-  push:
-    branches: [master]
-    tags:
-  workflow_dispatch:
+  push: [push, pull_request, workflow_dispatch]
 
 env:
     emsdk_ver: 3.1.19
