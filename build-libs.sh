@@ -2,7 +2,7 @@
 # build INSTEAD with emscripten
 
 set -e
-export WORKSPACE="/home/peter/Devel/emsdk/env"
+export WORKSPACE="/home/peter/Devel/emsdk-portable/env"
 
 if [ ! -f ./emsdk_env.sh ]; then
 	echo "Run this script in emsdk directory"

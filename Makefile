@@ -1,4 +1,4 @@
-VERSION := 3.4.0
+VERSION := 3.5.0
 
 DATAPATH=.
 STEADPATH=$(DATAPATH)/stead
@@ -25,6 +25,11 @@ SRC     := $(INSTEAD_SRC)
 OBJ     := $(patsubst %.c, %.o, $(SRC))
 
 all: metaparser$(EXE) stead
+
+update:
+	git submodule update --recursive --remote
+	git submodule foreach git checkout master
+	git submodule foreach git pull origin master
 
 stead:
 	mkdir stead

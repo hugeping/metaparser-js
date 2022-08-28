@@ -1,11 +1,17 @@
-export WORKSPACE="/home/peter/Devel/emsdk/env"
+# export WORKSPACE="/home/peter/Devel/emsdk-portable/env"
+# export EMSDK="/home/peter/Devel/emsdk-portable/emsdk"
 
 if [ -z "$WORKSPACE" ]; then
 	echo "Define WORKSPACE path in $0"
 	exit 1
 fi
 
-. /home/peter/Devel/emsdk/emsdk/emsdk_env.sh
+if [ -z "$EMSDK" ]; then
+	echo "Define EMSDK path in $0"
+	exit 1
+fi
+
+. $EMSDK/emsdk_env.sh
 
 LIB="$WORKSPACE/lib"
 INC="$WORKSPACE/include"
