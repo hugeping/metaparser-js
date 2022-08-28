@@ -41,7 +41,8 @@ jobs:
           export WORKSPACE="${{github.workspace}}/emsdk/env"
           export EMSDK="${{github.workspace}}/emsdk"
           ../build-libs.sh
-          ../build.sh
+          cd ..
+          ./build.sh
 
       - name: Create Artifact
         run: |
