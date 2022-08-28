@@ -72,7 +72,7 @@ jobs:
       - name: Create zip
         run: |
           ls -alFR
-          cd artifact
+          cd metaparser-js
           zip -r ../metaparser-js.zip metaparser-js/
       - name: Create release and upload artifacts
         env:
