@@ -1,3 +1,7 @@
+> [!WARNING]
+> The metaparser-js project is now part of the [reinstead](https://github.com/instead-hub/reinstead) project.
+> This repo is archived!
+
 Add metaparser game as data.zip or uncomment tag <!--	<meta name="gamefile" content="yourgame.zip"> --> in index.html
 You also can make links like this: https://mygamesite/instead.html?mygame.zip
 
